@@ -1,6 +1,6 @@
 import Navbar from './components/Navbar';
 import ImageAndWelcome from './components/ImageAndWelcome';
-import FeaturedCities from './components/FeaturedCities';
+import CityList from './components/CityList';
 import { Component } from 'react';
 import SearchCity from './components/SearchCity';
 
@@ -27,7 +27,7 @@ class App extends Component{
         <ImageAndWelcome />
         {/* start of container */}
         <div className="container" style={{ marginTop: 30, marginBottom: 30 }}>
-          <FeaturedCities cities={citiesDummy} />
+          <CityList title={'Featured Cities'} cities={citiesDummy} />
   
           {/* start of search section */}
           <SearchCity 
@@ -35,7 +35,7 @@ class App extends Component{
             onChange={this.changeKeywordHandler}
             />
           {/* end of search section */}
-  
+          <CityList title={'Search Result'} cities={citiesDummy} />
         </div> 
         {/* end of container */}
       </>
