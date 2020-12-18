@@ -4,23 +4,14 @@
 import mainImage from "./assets/images/aneka-makanan.png";
 
 function App() {
+
+  const citiesDummy = [
+    { id: 74, name: 'Jakarta', country_name: 'Indonesia' },
+    { id: 11052, name: 'Bandung', country_name: 'Indonesia' },
+    { id: 170, name: 'Bali', country_name: 'Indonesia' },
+  ];
+
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <a className="navbar-brand text-white" href="/">FoodParadise</a>
@@ -41,7 +32,28 @@ function App() {
             </div>
           </div>
         </div>
-</div>
+      </div>
+
+      <div className="container" style={{ marginTop: 30, marginBottom: 30 }}>
+          <div className="row">
+              <div className="col-12">
+              <h3>Featured Cities</h3>
+              </div>
+          </div>
+          <div className="row">
+              {citiesDummy.map(city =>
+              <div className="col-4">
+                  <div className="card bg-light mb-3">
+                  <div className="card-body">
+                      <h4 className="card-title">{city.name}</h4>
+                      <p>{city.country_name}</p>
+                      <a href="/#" className="card-text">See restaurants in {city.name}</a>
+                  </div>
+                  </div>
+              </div>
+              )}
+          </div>
+      </div>
     </>
   );
 }
