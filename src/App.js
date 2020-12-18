@@ -1,7 +1,5 @@
-// import logo from './logo.svg';
-// import './App.css';
-
 import mainImage from "./assets/images/aneka-makanan.png";
+import CityCard from "./components/CityCard";
 
 function App() {
 
@@ -42,15 +40,7 @@ function App() {
           </div>
           <div className="row">
               {citiesDummy.map(city =>
-              <div className="col-4">
-                  <div className="card bg-light mb-3">
-                  <div className="card-body">
-                      <h4 className="card-title">{city.name}</h4>
-                      <p>{city.country_name}</p>
-                      <a href="/#" className="card-text">See restaurants in {city.name}</a>
-                  </div>
-                  </div>
-              </div>
+                <CityCard key={city.id} city={city} />
               )}
           </div>
       </div>
