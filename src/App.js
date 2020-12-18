@@ -3,6 +3,7 @@ import ImageAndWelcome from './components/ImageAndWelcome';
 import CityList from './components/CityList';
 import { Component } from 'react';
 import SearchCity from './components/SearchCity';
+import Footer from './components/Footer/Footer';
 
 class App extends Component{
   constructor() {
@@ -38,6 +39,7 @@ class App extends Component{
           <CityList title={'Search Result'} cities={citiesDummy} />
         </div> 
         {/* end of container */}
+        <Footer />
       </>
     );
   }
