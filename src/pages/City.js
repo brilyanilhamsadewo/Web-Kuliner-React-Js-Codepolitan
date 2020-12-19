@@ -125,8 +125,7 @@ class City extends Component {
         let { city_id } = this.props.match.params
         this.getCityData(city_id)
 
-        let categories = this.transformCategoriesData(categoriesDummy)
-        this.setState({ categories });
+        this.getCategoriesData();
         }
 
         categoryClickHandler = (category) => {
@@ -163,6 +162,21 @@ class City extends Component {
             let criteria = [...this.state.criteria]
             criteria.splice(index, 1)
             this.setState({ criteria })
+        }
+
+        getCategoriesData = () => {
+            let url = `${API.zomato.baseUrl}/categories`
+            axios.get(url, {
+              headers: {
+                'user-key': API.zomato.api_key
+              }
+            })
+              .then(({ data }) => {
+                // proses transform data categories
+                let categories = this.transformCategoriesData(data.categories)
+                this.setState({ categories })
+              })
+              .catch(err => console.log(err))
         }
     
 
