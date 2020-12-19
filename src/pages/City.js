@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { API } from '../config/api';
+import CategoryList from '../components/CategoryList'
 
 const categoriesDummy = [
     {
@@ -94,19 +95,11 @@ class City extends Component {
             <div className="row">
                 <div className="col-3">
                 <h5>Categories</h5>
-                { this.state.categories && (
-                    <div className="list-group">
-                    {this.state.categories.map(category => (
-                        <button
-                        key={category.id}
-                        className={'list-group-item list-group-item-action ' + (this.state.categorySelected && category.id === this.state.categorySelected.id ? 'active' : '')}
-                        onClick={() => this.categoryClickHandler(category)}
-                        >
-                        {category.name}
-                        </button>
-                    ))}
-                    </div>
-                )}
+                <CategoryList 
+                    categories={this.state.categories}
+                    categorySelected={this.state.categorySelected}
+                    categoryClickHandler={(category) => this.categoryClickHandler(category)}
+                />
                 </div>
             </div>
         </div>
