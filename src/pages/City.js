@@ -112,6 +112,12 @@ class City extends Component {
             criteria.push(newCriteria)
             this.setState({ keyword: '', criteria })
         }
+
+        removeCriteriaHandler = (index) => {
+            let criteria = [...this.state.criteria]
+            criteria.splice(index, 1)
+            this.setState({ criteria })
+        }
     
 
   render(){
@@ -153,12 +159,15 @@ class City extends Component {
                                         <td width="40%">{cri.criteriaName}</td>
                                         <td width="50%">{cri.data.name}</td>
                                         <td>
-                                            <i
+                                            {cri.criteriaName !== 'City' && (
+                                           <i
                                                 className="fa fa-times"
                                                 aria-hidden="true"
                                                 style={{ color: 'red' }}
-                                            >
+                                                onClick={() => this.removeCriteriaHandler(index)}
+                                                >
                                             </i>
+                                            )}
                                         </td>
                                     </tr>
                                 ))}
