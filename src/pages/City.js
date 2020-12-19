@@ -34,7 +34,8 @@ class City extends Component {
         super()
         this.state = {
             city: null,
-            categories: null
+            categories: null,
+            categorySelected: null
         }
     }
 
@@ -71,6 +72,10 @@ class City extends Component {
         let categories = this.transformCategoriesData(categoriesDummy)
         this.setState({ categories });
         }
+
+        categoryClickHandler = (category) => {
+            this.setState({ categorySelected: category })
+        }
     
 
   render(){
@@ -89,12 +94,13 @@ class City extends Component {
             <div className="row">
                 <div className="col-3">
                 <h5>Categories</h5>
-                {this.state.categories && (
+                { this.state.categories && (
                     <div className="list-group">
                     {this.state.categories.map(category => (
                         <button
-                            key={category.id}
-                            className={'list-group-item list-group-item-action '}
+                        key={category.id}
+                        className={'list-group-item list-group-item-action ' + (this.state.categorySelected && category.id === this.state.categorySelected.id ? 'active' : '')}
+                        onClick={() => this.categoryClickHandler(category)}
                         >
                         {category.name}
                         </button>
