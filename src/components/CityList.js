@@ -13,15 +13,30 @@ const CityList = (props) => (
         </div>
         <div className="row">
         { props.cities == null ? (
-        <div className="col">
+            <div className="col">
                 <p>Loading . . . </p>
             </div>
         ) : (
-            props.cities.map(city =>
-            <CityCard key={city.id} city={city} />
-        ))}
+            _renderCityList(props.cities)
+        )}
         </div>
     </div>
 );
+
+const _renderCityList = (cities) => {
+    if(cities.length > 0) {
+      return (
+        cities.map(city =>
+          <CityCard key={city.id} city={city} />
+        )
+      )
+    } else {
+      return (
+        <div className="col">
+          <p className="text-danger">Data not found !</p>
+        </div>
+      )
+    }
+}
 
 export default CityList
