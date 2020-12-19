@@ -4,6 +4,50 @@ import { API } from '../config/api';
 import CategoryList from '../components/CategoryList'
 import SearchKeyword from '../components/SearchKeyword'
 import SearchCriteria from '../components/SearchCriteria'
+import { Link } from 'react-router-dom' 
+
+const restaurants = [
+    {
+      "restaurant": {
+        "id": "18875696",
+        "name": "Kintaro Sushi",
+        "location": {
+          "address": "Jl. Suryo No. 20, Senopati, Jakarta",
+          "locality": "Senopati",
+        },
+        "cuisines": "Sushi, Japanese",
+        "average_cost_for_two": 200000,
+        "currency": "IDR",
+        "thumb": "https://b.zmtcdn.com/data/pictures/chains/5/18530405/0feeddcbe877a8e27526a8cf5b501edf.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A",
+        "user_rating": {
+          "aggregate_rating": "4.9",
+          "rating_text": "Excellent",
+          "rating_color": "3F7E00",
+          "votes": "1358"
+        },
+      }
+    },
+    {
+      "restaurant": {
+        "id": "18875696",
+        "name": "Kintaro Sushi",
+        "location": {
+          "address": "Jl. Suryo No. 20, Senopati, Jakarta",
+          "locality": "Senopati",
+        },
+        "cuisines": "Sushi, Japanese",
+        "average_cost_for_two": 200000,
+        "currency": "IDR",
+        "thumb": "https://b.zmtcdn.com/data/pictures/chains/5/18530405/0feeddcbe877a8e27526a8cf5b501edf.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A",
+        "user_rating": {
+          "aggregate_rating": "4.9",
+          "rating_text": "Excellent",
+          "rating_color": "3F7E00",
+          "votes": "1358"
+        },
+      }
+    }
+]
 
 const categoriesDummy = [
     {
@@ -154,6 +198,74 @@ class City extends Component {
                     criteria={this.state.criteria}
                     removeCriteriaHandler={(index) => this.removeCriteriaHandler(index)}
                 />
+
+                <div className="row">
+                    <div className="col" style={{ marginBottom: 10 }}>
+                        <h4 className="text-success">Restaurant List</h4>
+                    </div>
+                </div>
+                <div className="row">
+                {
+                restaurants.map(({ restaurant }) => (
+                    <div className="col-6" style={{ marginBottom: 20 }}>
+                    <div className="card">
+                        <div className="card-header">
+                        <div className="row">
+                            <div className="col-3">
+                            <img className="img-responsive" src={restaurant.thumb} alt="" style={{ borderRadius: 5, width: 100 }} ></img>
+                            </div>
+                            <div className="col-9">
+                            <h4 className="text-success" style={{ fontWeight: 800 }}>{restaurant.name}</h4>
+                            <h6>{restaurant.location.locality}</h6>
+                            <h6 className="text-muted">{restaurant.location.address}</h6>
+                            </div>
+                        </div>
+                        </div>
+                        <div className="card-body">
+                        <table className="table">
+                            <tbody>
+                            <tr>
+                                <td>Rating</td>
+                                <td>
+                                <div className="btn btn-sm"
+                                    style={{
+                                    color: 'white',
+                                    backgroundColor: `#${restaurant.user_rating.rating_color}`,
+                                    borderColor: `#${restaurant.user_rating.rating_color}`,
+                                    }}
+                                >
+                                    {`${restaurant.user_rating.aggregate_rating} (${restaurant.user_rating.rating_text})`}
+                                </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cuisines</td>
+                                <td>
+                                {restaurant.cuisines}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cost for two</td>
+                                <td>
+                                {restaurant.currency + ' ' + restaurant.average_cost_for_two}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        </div>
+                        <div className="card-footer">
+                        <Link to={`/restaurant/${restaurant.id}`} style={{ textDecoration: 'none' }}>
+                            <button type="button" className="btn btn-outline-success btn-block">
+                            View Restaurant Details
+                            </button>
+                        </Link>
+                        </div>
+                    </div>
+                    </div>
+                ))
+            }
+                </div>
             </div>      
             </div>
         </div>
