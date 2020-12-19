@@ -82,12 +82,16 @@ class Home extends Component {
                 onClickSearch={this.searchHandler}
             />
   
-            <CityList 
-                title={'Search Result'} 
-                showSubtitle={true}
-                subtitle={this.state.cityKeywordSearch}  
-                cities={this.state.citiesResultSearch} 
-            />
+            {
+                this.state.cityKeywordSearch !== '' && (
+                    <CityList
+                        title={'Search Result'}
+                        showSubtitle={true}
+                        subtitle={this.state.cityKeywordSearch}
+                        cities={this.state.citiesResultSearch}
+                    />  
+                )
+            }
   
         </div>
         </>
