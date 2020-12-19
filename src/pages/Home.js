@@ -10,12 +10,37 @@ class Home extends Component {
         this.state = {
           keyword: "",
           featuredCities: null,
+          citiesResultSearch: null,
+          cityKeywordSearch: '',
         };
       }
 
       changeKeywordHandler = (event) => {
         this.setState({ keyword: event.target.value });
       };
+
+      searchHandler = () => {
+        let keyword = this.state.keyword
+        var url = `https://developers.zomato.com/api/v2.1/cities`
+        axios.get(url, {
+          headers: {
+            'user-key': '68beb5ab6b67ae9a41b6adf922f94099'
+          },
+          params: {
+            q: keyword
+          }
+        })
+          .then(({ data }) => {
+            if (data.status === 'success') {
+                this.setState({ 
+                    citiesResultSearch: data.location_suggestions, 
+                    keyword: '', 
+                    cityKeywordSearch: keyword 
+                })
+            }
+          })
+          .catch(err => console.log(err))
+      }
 
       getFeaturedCities = () => {
          var url = "https://developers.zomato.com/api/v2.1/cities" 
@@ -51,12 +76,18 @@ class Home extends Component {
         <div className="container" style={{ marginTop: 30, marginBottom: 30 }}>
             <CityList title={'Featured Cities'} cities={this.state.featuredCities} />
   
-          <SearchCity
-            value={this.state.keyword}
-            onChange={this.changeKeywordHandler}
-          />
+            <SearchCity
+                value={this.state.keyword}
+                onChange={this.changeKeywordHandler}
+                onClickSearch={this.searchHandler}
+            />
   
-          <CityList title={'Search Result'} cities={citiesDummy} />
+            <CityList 
+                title={'Search Result'} 
+                showSubtitle={true}
+                subtitle={this.state.cityKeywordSearch}  
+                cities={this.state.citiesResultSearch} 
+            />
   
         </div>
         </>

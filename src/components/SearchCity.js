@@ -17,12 +17,13 @@ const SearchCity = (props) => (
             />
             </div>
             <div className="col-1">
-              <button
-                className="btn btn-primary"
-                type="button"
-              >
-                Search
-              </button>
+                <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={props.onClickSearch}
+                >
+                    Search
+                </button>
             </div>
           </div>
         </div>
