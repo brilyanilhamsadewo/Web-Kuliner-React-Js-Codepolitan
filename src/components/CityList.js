@@ -9,9 +9,14 @@ const CityList = (props) => (
             </div>
         </div>
         <div className="row">
-            {props.cities.map(city =>
-                <CityCard key={city.id} city={city} />
-            )}
+        { props.cities == null ? (
+        <div className="col">
+                <p>Loading . . . </p>
+            </div>
+        ) : (
+            props.cities.map(city =>
+            <CityCard key={city.id} city={city} />
+        ))}
         </div>
     </div>
 );
