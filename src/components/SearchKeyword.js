@@ -16,11 +16,12 @@ const SearchKeyword = (props) => (
             />
           </div>
           <div className="col">
-            <button
-              className="btn btn-primary"
-              type="button"
+          <button
+                className="btn btn-primary"
+                type="button"
+                onClick={props.onClickAddToCriteria}
             >
-              Add to criteria
+                Add to criteria
             </button>
           </div>
         </div>

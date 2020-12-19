@@ -98,6 +98,20 @@ class City extends Component {
         changeKeywordHandler = (event) => {
             this.setState({ keyword: event.target.value });
         }
+
+        addToCriteriaHandler = () => {
+            let criteria = [...this.state.criteria]
+            criteria = criteria.filter(cri => cri.criteriaName !== 'Keyword')
+            let newCriteria = {
+              criteriaName  : 'Keyword',
+              data          : {
+                name: this.state.keyword
+              }
+            }
+        
+            criteria.push(newCriteria)
+            this.setState({ keyword: '', criteria })
+        }
     
 
   render(){
@@ -124,8 +138,9 @@ class City extends Component {
                 </div>
                 <div className="col">
                 <SearchKeyword
-                keyword={this.state.keyword}
-                changeKeywordHandler={this.changeKeywordHandler}
+                    keyword={this.state.keyword}
+                    changeKeywordHandler={this.changeKeywordHandler}
+                    onClickAddToCriteria={this.addToCriteriaHandler}
                 />
 
                 <div className="card bg-light mb-3" style={{ marginTop: 20 }}>
