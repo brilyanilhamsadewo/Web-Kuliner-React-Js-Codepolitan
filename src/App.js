@@ -1,7 +1,9 @@
 import Navbar from './components/Navbar';
 import { Component } from 'react';
 import Footer from './components/Footer/Footer';
-import Home from './pages/Home'
+import Home from './pages/Home';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import City from './pages/City';
 
 class App extends Component{
   
@@ -9,11 +11,12 @@ class App extends Component{
     
   
     return (
-      <>
+      <Router>
         <Navbar />
-        <Home />
+        <Route path="/" exact component={Home}></Route>
+        <Route path="/city/:city_id" component={City}></Route>
         <Footer />
-      </>
+      </Router>
     );
   }
 }
