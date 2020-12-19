@@ -36,7 +36,8 @@ class City extends Component {
         this.state = {
             city: null,
             categories: null,
-            categorySelected: null
+            categorySelected: null,
+            keyword: ''
         }
     }
 
@@ -77,6 +78,10 @@ class City extends Component {
         categoryClickHandler = (category) => {
             this.setState({ categorySelected: category })
         }
+
+        changeKeywordHandler = (event) => {
+            this.setState({ keyword: event.target.value });
+        }
     
 
   render(){
@@ -101,6 +106,32 @@ class City extends Component {
                     categoryClickHandler={(category) => this.categoryClickHandler(category)}
                 />
                 </div>
+                <div className="col">
+            <h5>Keyword</h5>
+            <div className="card">
+                <div className="card-body">
+                <div className="form-row">
+                    <div className="col-10">
+                    <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Type keyword i.e : restaurant's name, location, cuisine, etc."
+                        value={this.state.keyword}
+                        onChange={this.changeKeywordHandler}
+                    />
+                    </div>
+                    <div className="col">
+                    <button
+                        className="btn btn-primary"
+                        type="button"
+                    >
+                        Add to criteria
+                    </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>      
             </div>
         </div>
     )
