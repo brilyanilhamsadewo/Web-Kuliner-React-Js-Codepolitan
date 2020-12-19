@@ -86,8 +86,44 @@ class City extends Component {
             categorySelected: null,
             keyword: '',
             criteria: [],
+            restaurants: [],
         }
     }
+
+    searchHandler = () => {
+        this.setState({restaurants: null})
+        let url = `${API.zomato.baseUrl}/search`
+        let params = {}
+    
+        for (let  cri of this.state.criteria) {
+    
+          switch (cri.criteriaName) {
+            case 'City' : 
+              params.entity_id    = cri.data.id
+              params.entity_type  = 'city'
+              break
+            case 'Category' : 
+              params.category     = cri.data.id
+              break
+            case 'Keyword' : 
+              params.q            = cri.data.name
+              break
+            default : break
+          }
+    
+        }
+    
+        axios.get(url, {
+          headers: {
+            'user-key': API.zomato.api_key
+          },
+          params
+        })
+          .then(({ data }) => {
+            this.setState({ restaurants : data.restaurants })
+          })
+          .catch(err => console.log(err))
+      }
 
     transformCategoriesData(categories) {
         let categoriesTransformed = categories.map(category => { 
@@ -178,6 +214,30 @@ class City extends Component {
               })
               .catch(err => console.log(err))
         }
+
+        renderRestaurantList = () => {
+            if(this.state.restaurants == null) {
+              return (
+                <div className="col">
+                  <p>Loading...</p> 
+                </div>
+              )
+            }
+        
+            if(this.state.restaurants.length > 0) {
+              return (
+                this.state.restaurants.map(({ restaurant }) => (
+                  <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+                ))
+              )
+            } else {
+              return (
+                <div className="col">
+                  <p>No Data available. Please select criteria, and click Search</p>
+                </div>
+              )
+            }
+        }
     
 
   render(){
@@ -212,6 +272,7 @@ class City extends Component {
                 <SearchCriteria 
                     criteria={this.state.criteria}
                     removeCriteriaHandler={(index) => this.removeCriteriaHandler(index)}
+                    onClickSearch={this.searchHandler}
                 />
 
                 <div className="row">
@@ -220,14 +281,7 @@ class City extends Component {
                     </div>
                 </div>
                 <div className="row">
-                {
-                restaurants.map(({ restaurant }) => (
-                    <RestaurantCard
-                    key={restaurant.id}
-                    restaurant={restaurant}
-                    />
-                ))
-            }
+                    { this.renderRestaurantList() }
                 </div>
             </div>      
             </div>
