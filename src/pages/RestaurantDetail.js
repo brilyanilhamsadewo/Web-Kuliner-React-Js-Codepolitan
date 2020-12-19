@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { API } from '../config/api'
+import RatingLabel from '../components/RatingLabel'
 
 class RestaurantDetail extends Component {
     constructor () {
@@ -64,12 +65,16 @@ class RestaurantDetail extends Component {
                             <div className="col-6">
                                 <table className="table">
                                 <tbody>
-                                    <tr>
+                                <tr>
                                     <td>Rating</td>
                                     <td>
-                                        <p>{this.state.restaurant.user_rating.aggregate_rating}</p>
+                                    <RatingLabel
+                                        labelColor={this.state.restaurant.user_rating.rating_color}
+                                        text={`${this.state.restaurant.user_rating.aggregate_rating} (${this.state.restaurant.user_rating.rating_text})`}
+                                    />
+                                    <h6>{this.state.restaurant.user_rating.votes} Votes</h6>
                                     </td>
-                                    </tr>
+                                </tr>
                                     <tr>
                                     <td>Cuisines</td>
                                     <td>
